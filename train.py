@@ -38,10 +38,12 @@ def parse_args():
     opts = parser.parse_args()
     return opts
 
+
 def set_random_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
+
 
 def save_checkpoint(chk_path, epoch, lr, optimizer, model_pos, min_loss):
     print('Saving checkpoint to', chk_path)
@@ -52,7 +54,8 @@ def save_checkpoint(chk_path, epoch, lr, optimizer, model_pos, min_loss):
         'model_pos': model_pos.state_dict(),
         'min_loss' : min_loss
     }, chk_path)
-    
+
+
 def evaluate(args, model_pos, test_loader, datareader):
     print('INFO: Testing')
     results_all = []
@@ -151,7 +154,8 @@ def evaluate(args, model_pos, test_loader, datareader):
     print('Protocol #2 Error (P-MPJPE):', e2, 'mm')
     print('----------')
     return e1, e2, results_all
-        
+
+
 def train_epoch(args, model_pos, train_loader, losses, optimizer, has_3d, has_gt):
     model_pos.train()
     for idx, (batch_input, batch_gt) in tqdm(enumerate(train_loader)):    
@@ -204,6 +208,7 @@ def train_epoch(args, model_pos, train_loader, losses, optimizer, has_3d, has_gt
             losses['total'].update(loss_total.item(), batch_size)
         loss_total.backward()
         optimizer.step()
+
 
 def train_with_config(args, opts):
     print(args)

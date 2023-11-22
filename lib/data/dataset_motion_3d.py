@@ -49,8 +49,8 @@ class MotionDataset3D(MotionDataset):
             if self.synthetic or self.gt_2d:
                 motion_3d = self.aug.augment3D(motion_3d)
                 motion_2d = np.zeros(motion_3d.shape, dtype=np.float32)
-                motion_2d[:,:,:2] = motion_3d[:,:,:2]
-                motion_2d[:,:,2] = 1                        # No 2D detection, use GT xy and c=1.
+                motion_2d[:, :, :2] = motion_3d[:, :, :2]
+                motion_2d[:, :, 2] = 1                        # No 2D detection, use GT xy and c=1.
             elif motion_file["data_input"] is not None:     # Have 2D detection 
                 motion_2d = motion_file["data_input"]
                 if self.flip and random.random() > 0.5:                        # Training augmentation - random flipping
